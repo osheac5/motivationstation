@@ -22,6 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+       <activity
+            android:screenOrientation="landscape"
+			android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name="com.shapes.matchymatchy.gamePaused"
+            android:label=" " >
+            <intent-filter>
+                <action android:name="android.intent.action.AnnoyingWordGame" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        
     </application>
 
 </manifest>
