@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-//Conor's Branch!!
+//Conor who Branch!!
+//John's branch
 
 public class MainActivity extends Activity {
 
