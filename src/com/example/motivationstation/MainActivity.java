@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-//Conor's Branch!!
+//Master Branch!
 
 public class MainActivity extends Activity {
 
