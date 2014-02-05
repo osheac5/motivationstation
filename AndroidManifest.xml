@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.motivationstation"
     android:versionCode="1"
@@ -22,6 +21,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.motivationstation.Alarm"
+            android:label="@string/title_activity_alarm"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.motivationstation.AlarmRecieverActivity"
+            android:label="@string/title_activity_alarm_reciever"
+            android:parentActivityName="Alarm" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="Alarm" />
+        </activity>
+        <activity
+            android:name="com.example.motivationstation.RepeatingAlarmReceiverActivity"
+            android:label="@string/title_activity_repeating_alarm_receiver" >
+        </activity>
     </application>
 
 </manifest>
+

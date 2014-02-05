@@ -10,11 +10,12 @@
     tools:context=".MainActivity" >
 
     <Button
+        android:id="@+id/AlarmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="Button1" />
+        android:text="Alarm" />
 
     <Button
         android:layout_width="wrap_content"
