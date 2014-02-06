@@ -2,14 +2,20 @@ package com.example.motivationstation;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
+import 	android.app.PendingIntent;
 
 public class Alarm extends Activity {
 
@@ -29,16 +35,35 @@ public class Alarm extends Activity {
 		
 		mbtnSetAlarm1.setOnClickListener(new OnClickListener(){
 			public void onClick(View view){
-				try{
-				int i = Integer.parseInt(AlarmManagerActivity.this, 2, intent,)
-			}
-		};
+				try{		//try called incase  invalid field or empty field entered into seconds
+					int i = Integer.parseInt(mTxtSeconds.getText().toString());
+					Intent intent = new Intent(Alarm.this, AlarmRecieverActivity.class);	//Intent passed from THIS class onto AlarmRecieverActivity.class
+					
+					PendingIntent pendingIntent = PendingIntent.getActivity(Alarm.this, 2, intent, PendingIntent.FLAG_CANCEL_CURRENT);//Future alarm
 		
-		// Show the Up button in the action bar.
-		setupActionBar();
+		AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+		am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (i * 1000), pendingIntent); //2nd parameter decides when in the future the alarm will go off.
+				
+		if (mToast != null){
+				mToast.cancel();	
+				}
+		mToast = Toast.makeText(getApplicationContext(),"Alarm for the Activity is set in " + i + "seconds", Toast.LENGTH_LONG);
+		mToast.show();
+		
+			} catch(NumberFormatException e){
+				if(mToast != null){
+					mToast.cancel();
+				}
+				mToast = Toast.makeText(Alarm.this, "Please enter some number in the text field and try again!", Toast.LENGTH_LONG);
+				mToast.show();
+				Log.i("Alarm" ,"Number format exception");
+			}
+				}
+		}};
 	
 	
-	}
+	
+		
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
