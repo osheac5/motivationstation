@@ -30,12 +30,12 @@ import java.util.TimeZone;
 
 public class Alarm extends Activity {
 	
-		
-		
-		private Button mbtnSetAlarm1, mbtnSetAlarm2, mbtnStopAlarm;
-		private EditText mTxtSeconds;
+		//public final static String EXTRA_MESSAGE = "com.example.motivationstation.MESSAGE";
+		public String AlarmMessagedisplay;
+		private Button mbtnSetAlarm1, mbtnSetAlarm2, mbtnStopAlarm, mbtnSaveMessage;
+		private EditText mYYYYMMDDHHMM, mMessage;
 		private Toast mToast;
-
+		
 		//Toast toast = Toast.makeText( getApplicationContext(), harry , Toast.LENGTH_LONG);
 
 		
@@ -52,36 +52,47 @@ public class Alarm extends Activity {
 		mbtnSetAlarm1 = (Button) findViewById(R.id.btnSetAlarm1);
 		mbtnSetAlarm2 = (Button) findViewById(R.id.btnSetAlarm2);
 		mbtnStopAlarm = (Button) findViewById(R.id.btnStopAlarm);
-		mTxtSeconds = (EditText) findViewById(R.id.txtSeconds);
-
+		mbtnSaveMessage	= (Button) findViewById(R.id.btnSaveMessage);
+		mYYYYMMDDHHMM = (EditText) findViewById(R.id.YYYYMMDDHHMM);
+		mMessage = (EditText) findViewById(R.id.Alarm);
+		
+		mbtnSaveMessage.setOnClickListener(new OnClickListener(){
+			
+			public void onClick(View view){
+				AlarmMessagedisplay = mMessage.getText().toString();
+			}
+		});
 		
 		mbtnSetAlarm1.setOnClickListener(new OnClickListener(){
-			
+		
 			
 		
 			public void onClick(View view){
-				try{		
-					//long epoch = new java.text.SimpleDateFormat("02/01/1970 01:00:00").parse("02/02/1970 01:00:00").getTime() / 1000;
-					////////////////////////////////////////////////////////
-			        String str = "2013-04-26 08:34:55";
-			        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			        Date formateDate = (Date) df.parse(str);
-			        long epoch = formateDate.getTime();
-			        
-					////////////////////////////////////////////////////////
-					//try called incase  invalid field or empty field entered into seconds
-					int i = Integer.parseInt(mTxtSeconds.getText().toString());
-					Intent intent = new Intent(Alarm.this, AlarmRecieverActivity.class);	//Intent passed from THIS class onto AlarmRecieverActivity.class
+				try{	
 					
+					String dateandtime = mYYYYMMDDHHMM.getText().toString();
+
+					
+					long epoch = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm").parse(dateandtime).getTime() / 1000;
+					String a = String.valueOf(epoch);
+					Log.d("Epoch value", a);
+					long time = (System.currentTimeMillis()/1000);
+					long timedifference = epoch - time;
+
+					//try called incase  invalid field or empty field entered into seconds
+
+					Intent intent = new Intent(Alarm.this, AlarmRecieverActivity.class);	//Intent passed from THIS class onto AlarmRecieverActivity.class
+				//	intent.putExtra(EXTRA_MESSAGE, AlarmMessagedisplay);
 					PendingIntent pendingIntent = PendingIntent.getActivity(Alarm.this, 2, intent, PendingIntent.FLAG_CANCEL_CURRENT);//Future alarm
-		
+					
+					
 		AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
-		am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (i * 1000), pendingIntent); //2nd parameter decides when in the future the alarm will go off.
+		am.set(AlarmManager.RTC_WAKEUP, epoch*1000, pendingIntent); //2nd parameter decides when in the future the alarm will go off.
 				
 		if (mToast != null){
 				mToast.cancel();	
 				}
-		mToast = Toast.makeText(getApplicationContext(),"Alarm for the Activity is set in " + i + "seconds", Toast.LENGTH_LONG);
+		mToast = Toast.makeText(getApplicationContext(),"Alarm for the Activity is set in " + timedifference + " seconds in the future", Toast.LENGTH_LONG);
 		mToast.show();
 		} 
 				catch(NumberFormatException e){
@@ -92,15 +103,16 @@ public class Alarm extends Activity {
 				mToast.show();
 				Log.i("Alarm" ,"Number format exception");
 			} 
-			/*catch (ParseException e) {
+			catch (ParseException e) {
 				mToast = Toast.makeText(Alarm.this, "unable to convert to epoch time", Toast.LENGTH_LONG);
 				mToast.show();
 				// TODO Auto-generated catch block
 					e.printStackTrace();
-				}*/ catch (ParseException e) {
+				}
+				/*catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 				
 			}
 			

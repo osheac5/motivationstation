@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -23,6 +24,8 @@ import android.content.Intent;
 import android.os.Build;
 
 public class AlarmRecieverActivity extends Activity {
+	
+	
 	private MediaPlayer mMediaPlayer;
 	private	PowerManager.WakeLock mWakeLock;
 	
@@ -40,11 +43,21 @@ public class AlarmRecieverActivity extends Activity {
 			WindowManager.LayoutParams.FLAG_FULLSCREEN|
 			WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
 			WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-		setContentView(R.layout.activity_alarm_reciever);
+			setContentView(R.layout.activity_alarm_reciever);
+		
+		// Get the message from the intent
+		/*Intent intent = getIntent();
+		String message = intent.getStringExtra(Alarm.EXTRA_MESSAGE);
+		
+		//Find the view by its id
+		TextView tv = new TextView(this);
+		tv.setText(message);
+		setContentView(tv);	*/
 		
 	    Button stopAlarm = (Button) findViewById(R.id.btnStopAlarm);
 	    stopAlarm.setOnClickListener(new View.OnClickListener(){
 	    	
+
 	 
 	    	public void onClick(View arg0){			//Called once Game/task has been completed
 				mMediaPlayer.stop();				//in this case only refers to clickng the button
