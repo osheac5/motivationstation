@@ -97,7 +97,10 @@ public class Alarm extends Activity {
 				mToast.show();
 				// TODO Auto-generated catch block
 					e.printStackTrace();
-			*/	}
+				}*/ catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 			
